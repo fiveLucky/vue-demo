@@ -7,7 +7,7 @@
 import styles from "./style.css";
 
 export default {
-  name: "Home",
+  name: "List",
   props: {
     msg: String
   },
