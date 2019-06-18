@@ -1,6 +1,9 @@
 
 <template>
-  <div :class="styles.title">{{msg}}</div>
+  <div>
+    <div :class="styles.title">{{msg}}</div>
+    <slot></slot>
+  </div>
 </template>
 
 <script>
