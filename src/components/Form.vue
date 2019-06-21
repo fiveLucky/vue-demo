@@ -26,10 +26,16 @@ export default {
     };
   },
   methods: {
-    validate(cb) {},
+    validate(cb = () => {}) {
+      Promise.all(this.validators.map(va => va())).then(messages => {
+        if (messages.every(msg => msg === undefined)) {
+          cb();
+        }
+      });
+    },
     onSave() {
       this.save();
-      this.validators.forEach(validator => validator());
+      this.validate();
     }
   },
   mounted() {

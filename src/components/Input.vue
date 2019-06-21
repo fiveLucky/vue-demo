@@ -1,7 +1,7 @@
 <template>
   <div class="input">
     <input class="input-normal" :class="{'input-error':message }" @input="input" :value="value">
-    <div class="error-message" v-show="!!message">
+    <div class="error-message" v-show="message !== undefined">
       <span>{{message}}</span>
     </div>
   </div>
@@ -22,7 +22,7 @@ export default {
   },
   data() {
     return {
-      message: ""
+      message: undefined
     };
   },
   computed: {
@@ -37,8 +37,12 @@ export default {
       this.validatorInit(value);
     },
     validatorInit(value) {
-      this.validator(value, message => {
-        this.message = message;
+      const self = this;
+      return new Promise((res, rej) => {
+        self.validator(value, message => {
+          self.message = message;
+          res(message);
+        });
       });
     }
   },

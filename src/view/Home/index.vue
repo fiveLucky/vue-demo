@@ -44,9 +44,7 @@ export default {
     clear() {
       this.model = {};
     },
-    save() {
-      alert(this.model);
-    },
+    save() {},
     validator(value, cb) {
       if (value !== "卢本伟很帅") {
         cb("请输入卢本伟很帅");
