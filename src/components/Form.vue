@@ -1,18 +1,23 @@
 <template>
   <div class="form">
     <slot></slot>
-    <button @click="save">保存</button>
+    <button @click="onSave">保存</button>
     <button @click="clear">清空</button>
   </div>
 </template>
 
 <script>
+const noop = () => {};
 export default {
   name: "Form",
   props: {
-    model: {
-      type: Object,
-      default: {}
+    clear: {
+      type: Function,
+      default: noop
+    },
+    save: {
+      type: Function,
+      default: noop
     }
   },
   data() {
@@ -22,14 +27,9 @@ export default {
   },
   methods: {
     validate(cb) {},
-    save() {
-      console.log(this.validators);
-      this.validators.forEach(va => {
-        va.validator(this.model[va.field]);
-      });
-    },
-    clear() {
-      this.model = {};
+    onSave() {
+      this.save();
+      this.validators.forEach(validator => validator());
     }
   },
   mounted() {

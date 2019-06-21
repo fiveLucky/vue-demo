@@ -3,19 +3,14 @@
   <div>
     <div :class="styles.title">{{msg}}</div>
     <slot></slot>
-    <Form :model="model">
+    <Form :model="model" :clear="clear" :save="save">
       <Field label="姓名">
-        <Input v-model="model.name" field="name" :validator="validator"/>
+        <Input v-model="model.name" :validator="validator"/>
       </Field>
       <Field label="年龄">
-        <Input v-model="model.age" field="age" :validator="validator"/>
+        <Input v-model="model.age" :validator="validator"/>
       </Field>
     </Form>
-    <select name="s" id="s" v-model="model.select" @change="changeInput">
-      <option value="1">1-a</option>
-      <option value="2">2-a</option>
-      <option value="3">3-a</option>
-    </select>
     <div>wwwww{{model}}</div>
   </div>
 </template>
@@ -46,11 +41,11 @@ export default {
     }
   }),
   methods: {
-    changeInput(arg) {
-      console.log(arg, "change");
+    clear() {
+      this.model = {};
     },
-    input(arg) {
-      console.log(arg);
+    save() {
+      alert(this.model);
     },
     validator(value, cb) {
       if (value !== "卢本伟很帅") {

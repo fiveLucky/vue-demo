@@ -10,27 +10,29 @@
 <script>
 export default {
   name: "Input",
-  model: {
-    prop: "value",
-    event: "input"
-  },
   props: {
+    value: {
+      type: String,
+      default: ""
+    },
     validator: {
       type: Function,
       default: () => {}
-    },
-    field: String
+    }
   },
   data() {
     return {
-      value: "",
       message: ""
     };
+  },
+  computed: {
+    inputValue() {
+      return this.value;
+    }
   },
   methods: {
     input(e) {
       const value = e.target.value;
-      this.value = value;
       this.$emit("input", value);
       this.validatorInit(value);
     },
@@ -42,10 +44,7 @@ export default {
   },
   mounted() {
     this.$bus.$on("inject-validator", validators => {
-      validators.push({
-        field: this.field,
-        validator: this.validatorInit
-      });
+      validators.push(() => this.validatorInit(this.inputValue));
     });
   }
 };
