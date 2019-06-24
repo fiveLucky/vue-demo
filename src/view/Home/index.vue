@@ -3,7 +3,7 @@
   <div>
     <div :class="styles.title">{{msg}}</div>
     <slot></slot>
-    <Form :model="model" :clear="clear" :save="save">
+    <Form :clear="clear" :save="save">
       <Field label="姓名">
         <Input v-model="model.name" :validator="validator"/>
       </Field>
