@@ -12,11 +12,16 @@
       </Field>
     </Form>
     <div>wwwww{{model}}</div>
+    <div v-for="(people,index) in peoples" :key="index">
+      <span>{{people.name}}：</span>
+      <span>{{people.age}}</span>
+    </div>
   </div>
 </template>
 
 <script>
 import styles from "./style.less";
+import { mapActions } from "vuex";
 
 import Input from "../../components/Input";
 import Form from "../../components/Form";
@@ -51,6 +56,15 @@ export default {
       } else {
         cb();
       }
+    },
+    ...mapActions(["getPeoples"])
+  },
+  created() {
+    this.getPeoples();
+  },
+  computed: {
+    peoples() {
+      return this.$store.state.peoples;
     }
   }
 };
