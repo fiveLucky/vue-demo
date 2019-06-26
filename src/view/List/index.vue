@@ -1,6 +1,12 @@
 
 <template>
-  <div :class="styles.title">{{msg}}</div>
+  <div :class="styles.container">
+    <div>container</div>
+    <div :class="styles.parent">
+      <div :class="styles.body1">body1</div>
+      <div :class="styles.body2">body2</div>
+    </div>
+  </div>
 </template>
 
 <script>
