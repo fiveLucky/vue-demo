@@ -1,44 +1,40 @@
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const webpack = require('webpack');
 
+const { DP } = require('./utils')
 
+const { getCommonLoaders } = require('./loaders')
 
-export function getCommonLoaders(isProd) {
-  return [
-    {
-      test: /\.vue$/,
-      use: 'vue-loader'
-    },
-    {
-      test: /\.jsx?$/,
-      use: 'babel-loader'
-    },
-    {
-      test: /\.css$/,
-      exclude: /node_modules/,
-      use: [
-        isProd ? MiniCssExtractPlugin.loader : 'style-loader',
-        'css-loader?modules=true'
-      ]
-    },
-    {
-      test: /\.less/,
-      use: [
-        isProd ? MiniCssExtractPlugin.loader : 'style-loader',
-        'css-loader?modules=true',
-        {
-          loader: 'less-loader',
-        }
-      ]
-    },
-  ]
+const isProd = process.env.NODE === 'production'
 
-}
-export function getProdLoaders() {
-  return [
-    {
-      test: /\.(png|jpe?g|gif|woff|woff2)$/,
-      use: 'url-loader?limit=8192&mimetype=application/font-woff'
+module.exports = {
+  // 入口文件路径
+  entry: {
+    index: './src/index.js'
+  },
+  // 输出配置
+  output: {
+    path: DP('dist'),
+    filename: 'bundle.js',
+    publicPath: ""
+  },
+  // 模块配置
+  module: {
+    // 规则
+    rules: getCommonLoaders(isProd),
+  },
+  // 解析模块请求
+  resolve: {
+    // 指定模块查找的目录
+    // modules: ['node_modules'],
+    extensions: ['.js', '.jsx', '.ts', '.tsx'],
+    // 配置模块别名
+    alias: {
+      $component: DP('src/component'),
+      $util: DP('src/util'),
+
     }
-  ]
+  },
+  plugins: [
 
-} 
+  ]
+}
