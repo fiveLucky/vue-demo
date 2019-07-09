@@ -1,5 +1,5 @@
-const webpack = require('webpack');
-
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const VueLoaderPlugin = require('vue-loader/lib/plugin');
 const { DP } = require('./utils')
 
 const { getCommonLoaders } = require('./loaders')
@@ -8,14 +8,13 @@ const isProd = process.env.NODE === 'production'
 
 module.exports = {
   // 入口文件路径
-  entry: {
-    index: './src/index.js'
-  },
+
+  entry: ['./src/main.js'],
   // 输出配置
   output: {
     path: DP('dist'),
     filename: 'bundle.js',
-    publicPath: ""
+    publicPath: "/"
   },
   // 模块配置
   module: {
@@ -31,10 +30,12 @@ module.exports = {
     alias: {
       $component: DP('src/component'),
       $util: DP('src/util'),
-
     }
   },
   plugins: [
-
+    new HtmlWebpackPlugin({
+      template: 'public/index.html'
+    }),
+    new VueLoaderPlugin()
   ]
 }
