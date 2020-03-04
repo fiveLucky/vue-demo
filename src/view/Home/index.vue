@@ -5,16 +5,17 @@
     <slot></slot>
     <Form :clear="clear" :save="save">
       <Field label="姓名">
-        <Input v-model="model.name" :validator="validator"/>
+        <Input v-model="model.name" :validator="validator" />
       </Field>
       <Field label="年龄">
-        <Input v-model="model.age" :validator="validator"/>
+        <Input v-model="model.age" :validator="validator" />
       </Field>
     </Form>
     <div>wwwww{{model}}</div>
-    <div v-for="(people,index) in peoples" :key="index">
-      <span>{{people.name}}：</span>
-      <span>{{people.age}}</span>
+    <div :style="{width: '200px'}">
+      <Select :dataSource="peoples" v-slot="{item}">
+        <div>{{item.value}}</div>
+      </Select>
     </div>
   </div>
 </template>
@@ -23,16 +24,18 @@
 import styles from "./style.less";
 import { mapActions } from "vuex";
 
-import Input from "../../components/Input";
-import Form from "../../components/Form";
-import Field from "../../components/Field";
+import Input from "../../components/Input.vue";
+import Form from "../../components/Form.vue";
+import Field from "../../components/Field.vue";
+import Select from "../../components/Select.vue";
 
 export default {
   name: "Home",
   components: {
     Input,
     Form,
-    Field
+    Field,
+    Select
   },
   props: {
     msg: String

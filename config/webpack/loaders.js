@@ -8,28 +8,25 @@ function getCommonLoaders(isProd) {
       // 匹配文件
       test: /\.vue$/,
       // 使用相应的loaders
-      use: 'vue-loader'
+      use: "vue-loader"
     },
     {
       test: /\.jsx?$/,
-      use: 'babel-loader'
+      use: "babel-loader"
     },
     {
       test: /\.css$/,
       // 排除文件夹
       exclude: /node_modules/,
       // loader可以是多个
-      use: [
-        isProd ? MiniCssExtractPlugin.loader : 'style-loader',
-        'css-loader?modules=true'
-      ]
+      use: [isProd ? MiniCssExtractPlugin.loader : "style-loader", "css-loader?modules=true"]
     },
     {
       test: /\.less/,
       use: [
-        isProd ? MiniCssExtractPlugin.loader : 'style-loader',
+        isProd ? MiniCssExtractPlugin.loader : "style-loader",
         // inline语法
-        'css-loader?{modules:true}',
+        "css-loader?{modules:true}",
         // 可以是对象
         // {
         //   loader: 'css-loader',
@@ -37,10 +34,18 @@ function getCommonLoaders(isProd) {
         //     moudles: true
         //   }
         // },
-        'less-loader'
+        "less-loader"
       ]
     },
-  ]
+    {
+      test: /\.(png|jpe?g|gif|woff|woff2)$/,
+      use: "url-loader?limit=8192&mimetype=application/font-woff"
+    },
+    {
+      test: /\.(mp4|ogg|mp3)$/,
+      use: "file-loader"
+    }
+  ];
 
 }
 function getProdLoaders() {

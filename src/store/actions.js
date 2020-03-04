@@ -5,20 +5,20 @@ export default {
     setTimeout(() => {
       context.commit(types.GET_PEOPLES, [
         {
-          name: 'Jack',
-          age: 28
+          label: 'Jack',
+          value: 28
         },
         {
-          name: 'Bob',
-          age: 35
+          label: 'Bob',
+          value: 35
         },
         {
-          name: 'Jonece',
-          age: 23
+          label: 'Jonece',
+          value: 23
         },
         {
-          name: 'White',
-          age: 29
+          label: 'White',
+          value: 29
         },
       ])
     }, 1000);

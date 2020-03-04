@@ -37,7 +37,7 @@ export default {
       this.validatorInit(value);
     },
     validatorInit(value) {
-      return new Promise((res, rej) => {
+      return new Promise((res) => {
         this.validator(value, message => {
           this.message = message;
           res(message);
